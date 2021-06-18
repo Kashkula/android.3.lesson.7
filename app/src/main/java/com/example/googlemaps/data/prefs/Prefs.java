@@ -1,4 +1,4 @@
-package com.example.googlemaps.prefs;
+package com.example.googlemaps.data.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;

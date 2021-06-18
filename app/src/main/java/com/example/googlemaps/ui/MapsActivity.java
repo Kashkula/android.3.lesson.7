@@ -1,11 +1,12 @@
-package com.example.googlemaps;
+package com.example.googlemaps.ui;
 
 import androidx.fragment.app.FragmentActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
 
-import com.example.googlemaps.prefs.Prefs;
+import com.example.googlemaps.R;
+import com.example.googlemaps.data.prefs.Prefs;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,7 +29,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     protected Prefs prefs;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +42,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        polylineOptions = new PolylineOptions();
-        polylineOptions.color(Color.DKGRAY);
-        polylineOptions.width(10);
 
 
         setupListener();
@@ -73,6 +69,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void drawLocations() {
         if (list != null) {
+            polylineOptions = new PolylineOptions();
+            polylineOptions.color(Color.DKGRAY);
+            polylineOptions.width(10);
             for (LatLng location : list) {
                 polylineOptions.add(location);
             }
@@ -88,13 +87,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (list != null) {
             drawLocations();
         }
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
 
         mMap.setOnMapClickListener(this::onMapClick);
         mMap.setOnMarkerClickListener(this::onMarkerClick);
